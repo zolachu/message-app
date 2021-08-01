@@ -19,11 +19,18 @@ public class CreateMessageActivity extends AppCompatActivity {
     }
 
     public void onSendMessage(View view) {
-        Intent intent = new Intent(this, com.zolachu.createmessageapp.ReceiveMessageActivity.class);
+//        Intent intent = new Intent(this, com.zolachu.createmessageapp.ReceiveMessageActivity.class);
         EditText message = findViewById(R.id.message);
-
         String sMessage = message.getText().toString().trim();
-        intent.putExtra(ReceiveMessageActivity.EXTRA_MESSAGE, sMessage);
-        startActivity(intent);
+
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, sMessage);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "subject");
+        String chooser = getString(R.string.chooser);
+        Intent chosenIntent = Intent.createChooser(intent, chooser);
+        startActivity(chosenIntent);
+
     }
 }
